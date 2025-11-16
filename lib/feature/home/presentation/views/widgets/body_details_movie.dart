@@ -31,7 +31,7 @@ class BodyDetailsMovie extends StatelessWidget {
                   ),
                   // SizedBox(height: 20,),
                   Text(
-                    state.movie.title ?? '',style: Styles.textStyle18.copyWith(color: Colors.white), overflow: TextOverflow.ellipsis,
+                    state.movie.title ?? '',style: Styles.textStyle18, overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),
                   const SizedBox(height: 10,),
@@ -42,12 +42,12 @@ class BodyDetailsMovie extends StatelessWidget {
                       ),
                       const SizedBox(width: 40,),
                       Text(
-                          state.movie.releaseDate ?? '', style: Styles.textStyle16.copyWith(color: Colors.white)),
+                          state.movie.releaseDate ?? '', style: Styles.textStyle16),
                     ],
                   ),
                   const SizedBox(height: 20,),
                   Text(
-                    state.movie.overview ?? '',style: Styles.textStyle20.copyWith(color: Colors.white),
+                    state.movie.overview ?? '',style: Styles.textStyle20,
                     maxLines: 5,
                     overflow: TextOverflow.ellipsis,
                   ),

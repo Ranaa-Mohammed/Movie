@@ -20,53 +20,62 @@ class BodyCategoryView extends StatelessWidget {
       buildWhen: (previous, current) => current is FetchCategoryMovieSuccess ||
           current is FetchCategoryMovieLoading || current is FetchCategoryMovieFailure,
       builder: (context, state) {
+        
         if(state is FetchCategoryMovieSuccess){
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GridView.builder(
-                physics: BouncingScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 4,
-                  crossAxisSpacing: 4,
-                  childAspectRatio: 1 / 1.7,
-                ),
-                itemCount: state.movie.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return  GestureDetector(
-                    onTap: ()
-                  {
-                    context.goNamed(AppRouter.kDetailsMovie, pathParameters: {"movieId": state.movie[index].id.toString()});
-                    Navigator.pop(context, MaterialPageRoute(builder: (context) => DetailsMovie(movieID: state.movie[index].id.toString(),) ));
-                    //print("teeeeee id :${ state.movie[index].id.toString()}" );
-                    },
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            ItemCachedImage(
-                                image: '$apiImage${state.movie[index].posterPath }'
-                            ),
-                            const SizedBox(height: 8,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Rating(
-                                    rating: state.movie[index].voteAverage ?? 0,
-                                ),
-                                const SizedBox(height: 5,),
-                                Text(state.movie[index].title ?? '', style: Styles.textStyle14, overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                ),
-                              ],
-                            )
-                          ],
+          return NotificationListener<ScrollNotification>(
+            onNotification: (notification) {
+              if(notification.metrics.pixels == notification.metrics.maxScrollExtent && notification is ScrollUpdateNotification){
+                context.read<FetchFutureMovieCubit>().fetchCategoryMovieCubit(isLoadingMore: true);
+              }
+              return true;
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                  physics: BouncingScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4,
+                    childAspectRatio: 1 / 1.7,
+                  ),
+                  itemCount: state.movie.length ,
+                  itemBuilder: (BuildContext context, int index) {
+                    return  GestureDetector(
+                      onTap: ()
+                    {
+                      context.pushNamed(AppRouter.kDetailsMovie, pathParameters: {"movieId": state.movie[index].id.toString()});
+                     // Navigator.pop(context, MaterialPageRoute(builder: (context) => DetailsMovie(movieID: state.movie[index].id.toString(),) ));
+                      //print("teeeeee id :${ state.movie[index].id.toString()}" );
+                      },
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              ItemCachedImage(
+                                  image: '$apiImage${state.movie[index].posterPath }'
+                              ),
+                              const SizedBox(height: 8,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Rating(
+                                      rating: state.movie[index].voteAverage ?? 0,
+                                  ),
+                                  const SizedBox(height: 5,),
+                                  Text(state.movie[index].title ?? '', style: Styles.textStyle14, overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }
+                    );
+                  }
+              ),
             ),
           );
         }else if(state is FetchCategoryMovieFailure){

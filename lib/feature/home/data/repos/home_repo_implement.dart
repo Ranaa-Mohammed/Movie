@@ -17,7 +17,8 @@ class HomeRepoImplement implements HomeRepo{
   Future<Either<Failure, List<MovieModel>>> fetchFutureMovie() async{
     try {
       var response = await apiService.get(
-          endPoint: 'movie/popular?api_key=ceb6dfe929fec3c4ac3bd8326a03342e');
+          endPoint: 'movie/popular?api_key=ceb6dfe929fec3c4ac3bd8326a03342e'
+          );
       List<MovieModel> movie = [];
       for (var item in response['results']) {
         movie.add(MovieModel.fromJson(item));
@@ -26,7 +27,7 @@ class HomeRepoImplement implements HomeRepo{
     }catch(e){
       if(e is DioException) {
         log(e.toString());
-;        return left(ServerFailure.fromDioException(e));
+        return left(ServerFailure.fromDioException(e));
       }
       log(e.toString());
 
@@ -54,10 +55,14 @@ class HomeRepoImplement implements HomeRepo{
 
 
   @override
-  Future<Either<Failure, List<MovieModel>>> fetchCategoryMovie() async{
+  Future<Either<Failure, List<MovieModel>>> fetchCategoryMovie({required int page}) async{
     try {
       var response = await apiService.get(
-          endPoint: 'movie/popular?api_key=ceb6dfe929fec3c4ac3bd8326a03342e');
+          endPoint: 'movie/popular?api_key=ceb6dfe929fec3c4ac3bd8326a03342e',
+          queryParameters: {
+            'page' : page,
+          },
+          );
       List<MovieModel> movie = [];
       for (var item in response['results']) {
         movie.add(MovieModel.fromJson(item));

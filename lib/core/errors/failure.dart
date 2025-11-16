@@ -43,17 +43,25 @@ class ServerFailure extends Failure {
     }
   }
 
-  factory ServerFailure.fromResponse (int statusCodee, dynamic response){
+factory ServerFailure.fromResponse(int statusCode, dynamic response) {
+    String message = 'Oops, there was an error, please try again';
 
-    if( statusCodee == 400 || statusCodee == 401 || statusCodee == 403){
-      return ServerFailure(response['error']['message']);
-    }else if(statusCodee == 404){
-      return ServerFailure('Your request not found, Please try later!');
-    }else if(statusCodee == 500){
-      return ServerFailure('Internal Server error, Please try later');
-    }else {
-      return ServerFailure('Opps There was an Error, Please try again');
+    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
+      if (response is Map<String, dynamic>) {
+        message = response['error']?['message'] ??
+            response['status_message'] ??
+            'Unauthorized request';
+      } else {
+        message = 'Unauthorized request';
+      }
+    } else if (statusCode == 404) {
+      message = 'Your request was not found, please try later';
+    } else if (statusCode == 500) {
+      message = 'Internal server error, please try later';
     }
+
+    return ServerFailure(message);
   }
+    
 
 }

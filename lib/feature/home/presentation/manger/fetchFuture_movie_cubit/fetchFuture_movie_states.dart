@@ -47,7 +47,17 @@ class DetailsMovieFailure extends FetchFutureMovieStates {
 }
 
 class DetailsMovieSuccess extends FetchFutureMovieStates {
+
   final DetailsModel movie;
 
   DetailsMovieSuccess(this.movie);
 }
+
+
+
+
+class CategoryPaginationLoading extends FetchFutureMovieStates {}
+
+class CategoryPaginationFailure extends FetchFutureMovieStates {}
+
+class CategoryPaginationSuccess extends FetchFutureMovieStates {}

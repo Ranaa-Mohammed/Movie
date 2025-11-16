@@ -24,7 +24,7 @@ class BodyHomeView extends StatelessWidget {
           const CustomAppbar(),
           Text(
             'Now Playing',
-            style: Styles.textStyle30.copyWith(color: Colors.white),
+            style: Styles.textStyle30,
           ),
           MultiBlocProvider(
            providers: [
@@ -33,11 +33,11 @@ class BodyHomeView extends StatelessWidget {
              ),
            ],
             child: Column(
-                children: [
-                  const SizedBox(height: 10,),
+                children: const [
+                  SizedBox(height: 10,),
                   CustomCarouselSlider(),
-                  const SizedBox(height: 20,),
-                  const CustomComingSoon(),
+                  SizedBox(height: 20,),
+                  CustomComingSoon(),
                 ],
               ),
           ),

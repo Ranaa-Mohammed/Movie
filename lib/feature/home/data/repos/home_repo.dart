@@ -7,7 +7,7 @@ abstract class HomeRepo {
 
   Future<Either<Failure, List<MovieModel>>> fetchMovie();
   Future<Either<Failure, List<MovieModel>>> fetchFutureMovie();
-  Future<Either<Failure, List<MovieModel>>> fetchCategoryMovie();
+  Future<Either<Failure, List<MovieModel>>> fetchCategoryMovie({required int page});
   Future<Either<Failure, DetailsModel>> detailsMovie({required String movieId});
 
 

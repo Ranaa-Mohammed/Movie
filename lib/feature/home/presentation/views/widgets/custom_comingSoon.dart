@@ -15,7 +15,7 @@ class CustomComingSoon extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Text(
             'Coming Soon',
-            style: Styles.textStyle18.copyWith(color: Colors.white),
+            style: Styles.textStyle18,
           ),
         ),
         const SizedBox(height: 10,),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie/core/config/theme/cubit/theme_cubit.dart';
 import 'package:movie/core/utils/service_locator.dart';
 import '../../feature/home/data/repos/home_repo_implement.dart';
 import '../../feature/home/presentation/manger/fetchFuture_movie_cubit/fetchFuture_movie_cubit.dart';
